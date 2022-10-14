@@ -1,7 +1,7 @@
 ---
 - name: Converge
-  hosts: all
+  hosts: server
   tasks:
     - name: "Include ansible-client-server-tests"
-      include_role:
+      ansible.builtin.include_role:
         name: "ansible-client-server-tests"

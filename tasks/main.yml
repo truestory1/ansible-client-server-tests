@@ -8,5 +8,5 @@
 - name: enable httpd service
   ansible.builtin.service:
     name: httpd
-    started: yes
+    state: started
     enabled: yes
