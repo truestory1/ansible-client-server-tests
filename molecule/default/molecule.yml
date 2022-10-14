@@ -11,12 +11,28 @@ driver:
 platforms:
   - name: server01
     docker_networks:
-      - name: test
+      - name: clientservertest
         ipam_config:
           - subnet: '172.40.0.0/16'
     networks:
-      - name: test
+      - name: clientservertest
         ipv4_address: '172.40.10.1'
+    pre_build_image: false
+    registry:
+      url: registry.access.redhat.com
+    image: ubi8/ubi-init
+    privileged: true
+    command: "/usr/sbin/init"
+    groups:
+      - servers
+  - name: server02
+    docker_networks:
+      - name: clientservertest
+        ipam_config:
+          - subnet: '172.40.0.0/16'
+    networks:
+      - name: clientservertest
+        ipv4_address: '172.40.10.2'
     pre_build_image: false
     registry:
       url: registry.access.redhat.com
@@ -27,8 +43,8 @@ platforms:
       - servers
   - name: client01
     networks:
-      - name: test
-        ipv4_address: '172.40.10.2'
+      - name: clientservertest
+        ipv4_address: '172.40.11.1'
     pre_build_image: false
     registry:
       url: registry.access.redhat.com
@@ -39,5 +55,13 @@ platforms:
       - client
 provisioner:
   name: ansible
+  inventory:
+    host_vars:
+      server01:
+        ip: '172.40.10.1'
+      server02:
+        ip: '172.40.10.2'
+      client01:
+        ip: '172.40.11.1'
 verifier:
   name: ansible

@@ -5,15 +5,22 @@
   hosts: client
   gather_facts: false
   tasks:
+    - name: server ip list
+      ansible.builtin.set_fact:
+        __server_ip: >-
+          {{
+            hostvars
+              | dict2items
+              | selectattr('key', 'in', groups.servers)
+              | map(attribute="value.ip")
+          }}
+
     - name: check if server is reachable
       ansible.builtin.uri:
-        url: http://172.40.10.1
+        url: "http://{{ item }}"
         return_content: yes
         status_code:
           - 200
       register: __tempvar
       failed_when: "'Hello from ansible' not in __tempvar.content"
-
-    - name: debug
-      ansible.builtin.debug:
-        var: __tempvar
+      loop: "{{ __server_ip }}"
