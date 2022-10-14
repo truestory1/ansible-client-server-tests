@@ -1,0 +1,38 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: server
+    docker_networks:
+      - name: test
+        ipam_config:
+          - subnet: '172.40.0.0/16'
+    networks:
+      - name: test
+        ipv4_address: '172.40.10.1'
+    pre_build_image: false
+    registry:
+      url: registry.access.redhat.com
+    image: ubi8/ubi-init
+    privileged: true
+    command: "/usr/sbin/init"
+    groups:
+      - server
+  - name: client
+    networks:
+      - name: test
+        ipv4_address: '172.40.10.2'
+    pre_build_image: false
+    registry:
+      url: registry.access.redhat.com
+    image: ubi8/ubi-init
+    privileged: true
+    command: "/usr/sbin/init"
+    groups:
+      - client
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

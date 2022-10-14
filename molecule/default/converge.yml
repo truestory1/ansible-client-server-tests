@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include ansible-client-server-tests"
+      include_role:
+        name: "ansible-client-server-tests"

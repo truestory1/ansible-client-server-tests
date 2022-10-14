@@ -1,0 +1,12 @@
+---
+# tasks file for ansible-client-server-tests
+- name: install httpd
+  ansible.builtin.package:
+    name: httpd
+    state: present
+
+- name: enable httpd service
+  ansible.builtin.service:
+    name: httpd
+    started: yes
+    enabled: yes
