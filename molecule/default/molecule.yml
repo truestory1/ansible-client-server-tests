@@ -9,7 +9,7 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: server
+  - name: server01
     docker_networks:
       - name: test
         ipam_config:
@@ -24,8 +24,8 @@ platforms:
     privileged: true
     command: "/usr/sbin/init"
     groups:
-      - server
-  - name: client
+      - servers
+  - name: client01
     networks:
       - name: test
         ipv4_address: '172.40.10.2'
