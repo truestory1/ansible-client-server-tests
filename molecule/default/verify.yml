@@ -9,8 +9,8 @@
       ansible.builtin.set_fact:
         __server_ip: >-
           {{
-            hostvars 
-              | dict2items 
+            hostvars
+              | dict2items
               | selectattr('key', 'in', groups.servers)
               | map(attribute="value.ip")
           }}
@@ -23,4 +23,4 @@
           - 200
       register: __tempvar
       failed_when: "'Hello from ansible' not in __tempvar.content"
-      loop: "{{__server_ip}}"
+      loop: "{{ __server_ip }}"
