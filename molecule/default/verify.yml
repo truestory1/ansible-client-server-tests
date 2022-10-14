@@ -12,6 +12,7 @@
         status_code:
           - 200
       register: __tempvar
+      failed_when: "'Hello from ansible' not in __tempvar.content"
 
     - name: debug
       ansible.builtin.debug:
