@@ -2,9 +2,17 @@
 # This is an example playbook to execute Ansible tests.
 
 - name: Verify
-  hosts: all
+  hosts: client
   gather_facts: false
   tasks:
-  - name: Example assertion
-    assert:
-      that: true
+    - name: check if server is reachable
+      ansible.builtin.uri:
+        url: http://172.40.10.1
+        return_content: yes
+        status_code:
+          - 200
+      register: __tempvar
+
+    - name: debug
+      ansible.builtin.debug:
+        var: __tempvar
