@@ -5,7 +5,7 @@
   hosts: client
   gather_facts: false
   tasks:
-    - name: server ip list
+    - name: Server ip list
       ansible.builtin.set_fact:
         __server_ip: >-
           {{
@@ -15,7 +15,7 @@
               | map(attribute="value.ip")
           }}
 
-    - name: check if server is reachable
+    - name: Check if server is reachable
       ansible.builtin.uri:
         url: "http://{{ item }}"
         return_content: yes

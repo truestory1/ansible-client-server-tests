@@ -1,17 +1,17 @@
 ---
 # tasks file for ansible-client-server-tests
-- name: install httpd
+- name: Install httpd
   ansible.builtin.package:
     name: httpd
     state: present
 
-- name: enable httpd service
+- name: Enable httpd service
   ansible.builtin.service:
     name: httpd
     state: started
     enabled: yes
 
-- name: put index.html
+- name: Put index.html
   ansible.builtin.copy:
     content: 'Hello from ansible'
     dest: /var/www/html/index.html
