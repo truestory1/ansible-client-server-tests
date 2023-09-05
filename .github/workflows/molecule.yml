@@ -19,10 +19,10 @@ jobs:
     #       - default
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
         with:
           path: "${{ github.repository }}"
       - name: Molecule
-        uses: robertdebock/molecule-action@5.0.2
+        uses: robertdebock/molecule-action@a71e455d3ce0925e285c32acc419efa048dd50e4 # 5.0.2
         # with:
         #   scenario: ${{ matrix.scenario }}
